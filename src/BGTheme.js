@@ -13,8 +13,8 @@ const BGTHEME = ({ bgImage, children }) => {
         style={{
           background:
             "linear-gradient(to bottom right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)",
-          paddingTop,
-          paddingBottom,
+          paddingTop: "10vh",
+          paddingBottom: "10vh",
         }}
       >
         {children}
