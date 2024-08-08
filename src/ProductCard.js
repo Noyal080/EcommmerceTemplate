@@ -19,9 +19,10 @@ const ProductCard = ({
   shareButton,
   currency,
   handleRoute,
+  itemsPerRow,
 }) => {
   return (
-    <Grid stackable stretched doubling columns={4}>
+    <Grid stackable stretched doubling columns={4 || itemsPerRow}>
       {productData?.length > 0 ? (
         productData?.map((product) => (
           <Grid.Column>

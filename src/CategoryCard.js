@@ -1,10 +1,10 @@
 import React from "react";
 import { Card } from "semantic-ui-react";
-const CategoryCard = ({ categoryData }) => {
+const CategoryCard = ({ categoryData, handleRoute, itemsPerRow }) => {
   return (
     <>
       <Card.Group
-        itemsPerRow={4}
+        itemsPerRow={4 || itemsPerRow}
         stackable
         style={{ margin: "0px 50px 50px 50px" }}
       >

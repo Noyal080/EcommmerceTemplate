@@ -5,3 +5,5 @@ export { default as CategoryCard } from "./CategoryCard";
 export { default as AdminCategory } from "./AdminCategory";
 export { default as AdminProduct } from "./AdminProduct";
 export { default as CommonModal } from "./CommonModal";
+export { default as HeroSection } from "./HeroSection";
+export { default as CategoryCarousel } from "./CategoryCarousel";
