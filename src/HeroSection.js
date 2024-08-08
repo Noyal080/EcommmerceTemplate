@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, Container, Grid, Input } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Button, Container, Grid, Header, Input } from "semantic-ui-react";
 import BGTHEME from "./BGTheme";
 const HeroSection = ({
   bgImage,
@@ -7,14 +7,13 @@ const HeroSection = ({
   headerText,
   subText,
   searchPlaceholder,
-  searchTerm,
-  setSearchTerm,
   handleKeyDown,
   frequentlySearchedItems,
   productTitle,
   handleRoute,
   onPressExplore,
 }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   return (
     <BGTHEME bgImage={bgImage}>
       <Container>
