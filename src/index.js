@@ -7,3 +7,6 @@ export { default as AdminProduct } from "./AdminProduct";
 export { default as CommonModal } from "./CommonModal";
 export { default as HeroSection } from "./HeroSection";
 export { default as CategoryCarousel } from "./CategoryCarousel";
+export { default as Carousel } from "./Carousel";
+export { default as ProductDetails } from "./ProductDetail";
+export { default as CartDetails } from "./CartDetails";

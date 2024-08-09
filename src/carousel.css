@@ -1,22 +1,105 @@
 .carousel-container {
-    overflow: hidden;
-    width: 800px;
-    margin: 0 auto;
-  }
-  
-  .carousel {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    transform: translateX(calc(-100% * var(--current-index)));
-  }
-  
-  .carousel-item {
-    min-width: 100%;
-    transition: opacity 1s ease-in-out;
-    opacity: 0;
-  }
-  
-  .carousel-item.active {
-    opacity: 1;
-  }
-  
+  position: relative;
+  width: 100vw; 
+  height: 75%; 
+  overflow: hidden;
+  margin: 0 auto;
+  background: none;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(calc(-100% * var(--current-index)));
+  width: 100%;
+  height: 100%; 
+  background: none;
+}
+
+.carousel-item {
+  min-width: 100%;
+  min-height:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: none;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: calc(100% - 20px);
+  font-size: 0.9em;
+  opacity: 0;
+  /* transform: translateY(100%); */
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+  background: none !important;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Add shadow for better readability */
+}
+
+.carousel-item.active .carousel-caption {
+  opacity: 1;
+  background: none !important;
+  color: black;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+  transform: translateY(0);
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out; 
+}
+
+.carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+/* Navigation buttons */
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1000;
+  background: none;
+  font-size: 2em;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); 
+}
+
+.carousel-prev {
+  left: 10px;
+}
+
+.carousel-next {
+  right: 10px;
+}
+
+/* Pagination dots */
+.carousel-pagination {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.carousel-dot.active {
+  background-color: white;
+}
