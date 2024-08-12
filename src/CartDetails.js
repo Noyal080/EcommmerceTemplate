@@ -3,18 +3,12 @@ import { Button, Container, Grid, Header, Image } from "semantic-ui-react";
 const CartDetails = ({
   getCartItems,
   updateCartItems,
+  removeCartItems,
   currency,
   handleImageClick,
   handleCheckout,
 }) => {
   const [cartItems, setCartItems] = useState(getCartItems());
-  const removeFromCart = (productId) => {
-    const updatedCartItems = cartItems.filter(
-      (item) => item.product !== productId
-    );
-    updateCartItems(updatedCartItems, setCartItems, navigate);
-    toast.info("Item has been deleted");
-  };
   return (
     <Container>
       <Header as="h2">My Cart</Header>
@@ -52,7 +46,7 @@ const CartDetails = ({
                     labelPosition="right"
                     color="black"
                     basic
-                    onClick={() => removeFromCart(cart.product)}
+                    onClick={() => removeCartItems(cart)}
                   >
                     <Icon name="trash" />
                     Remove Item

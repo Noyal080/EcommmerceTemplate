@@ -1,22 +1,20 @@
 import React from "react";
 import {
-  Button,
   Container,
+  Dropdown,
   Grid,
   Header,
   Icon,
   Image,
   Pagination,
   Table,
-  Dropdown,
 } from "semantic-ui-react";
 
-const AdminProduct = ({
-  productData,
+const AdminOrder = ({
+  orderData,
   tablecolumns,
-  addProduct,
-  editProduct,
-  deleteProduct,
+  updateOrder,
+  deleteOrder,
   currentPage,
   totalPages,
   handlePaginationChange,
@@ -47,29 +45,21 @@ const AdminProduct = ({
   };
   return (
     <Container>
-      <Header as="h2">
-        Products
-        <Button
-          color="blue"
-          style={{ marginLeft: 10 }}
-          onClick={() => addProduct()}
-          floated="right"
-        >
-          Add Product
-        </Button>
-      </Header>
+      <Header as="h2">Delivery</Header>
       <Table celled unstackable>
         <Table.Header>
           <Table.Row>
-            {tablecolumns?.map((column, index) => (
+            {tablecolumns.map((column, index) => (
               <Table.HeaderCell key={index}>{column.header}</Table.HeaderCell>
             ))}
-            <Table.HeaderCell>Actions</Table.HeaderCell>
+            {(updateOrder || deleteOrder) && (
+              <Table.HeaderCell> Actions </Table.HeaderCell>
+            )}
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {productData?.length > 0 ? (
-            productData?.map((row, rowIndex) => (
+          {orderData?.length > 0 ? (
+            orderData.map((row, rowIndex) => (
               <Table.Row key={rowIndex}>
                 {tablecolumns.map((column, colIndex) => (
                   <Table.Cell key={colIndex}>
@@ -77,45 +67,47 @@ const AdminProduct = ({
                   </Table.Cell>
                 ))}
                 <Table.Cell>
-                  <Icon
-                    color="blue"
-                    size="large"
-                    name="edit outline"
-                    onClick={() => editProduct(row)}
-                    style={{ cursor: "pointer", marginRight: "10px" }}
-                  />
-                  <Icon
-                    color="red"
-                    name="trash alternate"
-                    size="large"
-                    onClick={() => deleteProduct(row)}
-                    style={{ cursor: "pointer" }}
-                  />
+                  {updateOrder && (
+                    <Icon
+                      color="blue"
+                      size="large"
+                      name="edit outline"
+                      onClick={() => updateOrder(row)}
+                      style={{ cursor: "pointer", marginRight: "10px" }}
+                    />
+                  )}
+                  {deleteOrder && (
+                    <Icon
+                      color="red"
+                      name="trash alternate"
+                      size="large"
+                      onClick={() => deleteOrder(row)}
+                      style={{ cursor: "pointer" }}
+                    />
+                  )}
                 </Table.Cell>
               </Table.Row>
             ))
           ) : (
             <Table.Row>
               <Table.Cell colSpan={tablecolumns.length + 1} textAlign="center">
-                <h3>No Products Found</h3>
+                <h3>No Order Details Found</h3>
               </Table.Cell>
             </Table.Row>
           )}
         </Table.Body>
       </Table>
-      {totalPages > 1 && (
-        <Grid centered>
-          <Pagination
-            pointing
-            secondary
-            activePage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePaginationChange}
-          />
-        </Grid>
-      )}
+      <Grid centered>
+        <Pagination
+          pointing
+          secondary
+          activePage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePaginationChange}
+        />
+      </Grid>
     </Container>
   );
 };
 
-export default AdminProduct;
+export default AdminOrder;

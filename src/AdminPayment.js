@@ -1,27 +1,25 @@
 import React from "react";
 import {
-  Button,
   Container,
+  Dropdown,
   Grid,
   Header,
   Icon,
   Image,
   Pagination,
   Table,
-  Dropdown,
 } from "semantic-ui-react";
 
-const AdminProduct = ({
-  productData,
+const AdminPayment = ({
+  paymentData,
   tablecolumns,
-  addProduct,
-  editProduct,
-  deleteProduct,
+  updatePayment,
+  deletePayment,
   currentPage,
   totalPages,
   handlePaginationChange,
-  options,
   handleChange,
+  options,
 }) => {
   const renderCellContent = (column, row, rowIndex) => {
     switch (column.type) {
@@ -47,75 +45,61 @@ const AdminProduct = ({
   };
   return (
     <Container>
-      <Header as="h2">
-        Products
-        <Button
-          color="blue"
-          style={{ marginLeft: 10 }}
-          onClick={() => addProduct()}
-          floated="right"
-        >
-          Add Product
-        </Button>
-      </Header>
+      <Header as="h2">Delivery</Header>
       <Table celled unstackable>
         <Table.Header>
           <Table.Row>
-            {tablecolumns?.map((column, index) => (
+            {tablecolumns.map((column, index) => (
               <Table.HeaderCell key={index}>{column.header}</Table.HeaderCell>
             ))}
-            <Table.HeaderCell>Actions</Table.HeaderCell>
+            {(updatePayment || deletePayment) && (
+              <Table.HeaderCell> Actions </Table.HeaderCell>
+            )}
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {productData?.length > 0 ? (
-            productData?.map((row, rowIndex) => (
-              <Table.Row key={rowIndex}>
-                {tablecolumns.map((column, colIndex) => (
-                  <Table.Cell key={colIndex}>
-                    {renderCellContent(column, row, rowIndex)}
-                  </Table.Cell>
-                ))}
-                <Table.Cell>
+          {paymentData.map((row, rowIndex) => (
+            <Table.Row key={rowIndex}>
+              {tablecolumns.map((column, colIndex) => (
+                <Table.Cell key={colIndex}>
+                  {renderCellContent(column, row, rowIndex)}
+                </Table.Cell>
+              ))}
+              <Table.Cell>
+                {updatePayment && (
                   <Icon
                     color="blue"
                     size="large"
                     name="edit outline"
-                    onClick={() => editProduct(row)}
+                    onClick={() => updatePayment(row)}
                     style={{ cursor: "pointer", marginRight: "10px" }}
                   />
+                )}
+                {deletePayment && (
                   <Icon
                     color="red"
                     name="trash alternate"
                     size="large"
-                    onClick={() => deleteProduct(row)}
+                    onClick={() => deletePayment(row)}
                     style={{ cursor: "pointer" }}
                   />
-                </Table.Cell>
-              </Table.Row>
-            ))
-          ) : (
-            <Table.Row>
-              <Table.Cell colSpan={tablecolumns.length + 1} textAlign="center">
-                <h3>No Products Found</h3>
+                )}
               </Table.Cell>
             </Table.Row>
-          )}
+          ))}
         </Table.Body>
       </Table>
-      {totalPages > 1 && (
-        <Grid centered>
-          <Pagination
-            pointing
-            secondary
-            activePage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePaginationChange}
-          />
-        </Grid>
-      )}
+      <Grid centered>
+        <Pagination
+          pointing
+          secondary
+          activePage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePaginationChange}
+        />
+      </Grid>
     </Container>
   );
 };
 
-export default AdminProduct;
+export default AdminPayment;
