@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, Container } from "semantic-ui-react";
+import { Button, Card, Container, Loader } from "semantic-ui-react";
 import BGTHEME from "./BGTheme";
 const CategoryCarousel = ({
   categoryData,

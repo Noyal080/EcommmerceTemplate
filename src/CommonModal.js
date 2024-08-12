@@ -1,6 +1,13 @@
 import React from "react";
 import { Button, Modal } from "semantic-ui-react";
-const CommonModal = ({ title, modalChildren, btnName, handleClose, open }) => {
+const CommonModal = ({
+  title,
+  modalChildren,
+  btnName,
+  handleClose,
+  open,
+  onBtnPress,
+}) => {
   return (
     <Modal open={open} onClose={handleClose} dimmer="inverted">
       <Modal.Header> {title} </Modal.Header>
@@ -10,10 +17,12 @@ const CommonModal = ({ title, modalChildren, btnName, handleClose, open }) => {
           {" "}
           Cancel{" "}
         </Button>
-        <Button positive onClick={onBtnPress}>
-          {" "}
-          {btnName}{" "}
-        </Button>
+        {btnName && (
+          <Button positive onClick={onBtnPress}>
+            {" "}
+            {btnName}{" "}
+          </Button>
+        )}
       </Modal.Actions>
     </Modal>
   );

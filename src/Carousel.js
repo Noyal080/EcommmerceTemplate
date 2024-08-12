@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, Container } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import "./carousel.css";
 
 const Carousel = ({ items, style }) => {

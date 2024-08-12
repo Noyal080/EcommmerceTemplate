@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Button, Container, Grid, Header, Image } from "semantic-ui-react";
+import {
+  Button,
+  Container,
+  Grid,
+  Header,
+  Icon,
+  Image,
+  Message,
+} from "semantic-ui-react";
 const CartDetails = ({
   getCartItems,
   updateCartItems,

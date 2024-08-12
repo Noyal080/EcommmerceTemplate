@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Button, Container, Grid, Header, Input } from "semantic-ui-react";
+import {
+  Button,
+  Container,
+  Grid,
+  Header,
+  Image,
+  Input,
+} from "semantic-ui-react";
 import BGTHEME from "./BGTheme";
 const HeroSection = ({
   bgImage,
@@ -54,7 +61,7 @@ const HeroSection = ({
               Frequently Searched Items:
             </p>
             <div>
-              {frequentlySearchedItems.map((item) => (
+              {frequentlySearchedItems?.map((item) => (
                 <Button
                   key={item.label}
                   as="a"
@@ -84,7 +91,7 @@ const HeroSection = ({
                   </small>
                 </Header>
                 <Grid style={{ marginTop: 10 }}>
-                  {pinnedProduct?.slice(0, 4).map((product, index) => (
+                  {pinnedProduct?.slice(0, 4)?.map((product, index) => (
                     <Grid.Column
                       key={index}
                       width={8}
@@ -95,7 +102,7 @@ const HeroSection = ({
                         paddingTop: 0,
                       }}
                     >
-                      <ImageView url={product?.image} height={120} />
+                      <Image src={product?.image} style={{ height: 120 }} />
                       <b>{product.name}</b>
                     </Grid.Column>
                   ))}

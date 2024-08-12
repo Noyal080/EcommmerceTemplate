@@ -262,39 +262,8 @@ const ProductDetails = ({
                   </Grid.Row>
                 </Grid>
               </Segment>
-              {/* <Grid.Row>
-                    <Grid.Column width={8}>
-                      <h3>Delivery Location:</h3>
-                      <textarea
-                        rows={2}
-                        value={orderDetails.deliveryLocation}
-                        placeholder='Details of the delivery location'
-                      />
-                    </Grid.Column>
-                    <Grid.Column width={8}>
-                      <div>
-                        <h3>Contact Details:</h3>
-                        Email:<br/>
-                        <input
-                          type='text'
-                          value={orderDetails.deliveryLocation}
-                          placeholder='Details of the delivery location'
-                        />
-                      </div>
-                      <div>
-                        Phone Number:<br/>
-                        <input
-                          type='text'
-                          value={orderDetails.deliveryLocation}
-                          placeholder='Details of the delivery location'
-                        />
-                      </div>
-                    </Grid.Column>
-                  </Grid.Row>
-                  <Button basic content='Clear Order' onClick={() => setOrderDetails({ quantity: 0 })} /> */}
             </Grid>
           </Grid>
-          {/*<Button primary icon='comment alternate outline' content='Chat with Supplier' />*/}
         </Grid.Column>
       </Grid.Row>
     </Grid>
