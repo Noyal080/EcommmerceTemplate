@@ -127,8 +127,8 @@ const Checkout = ({ items, userData, onSubmit, currency, renderPayment }) => {
             <Segment>
               <Header as={"h4"}>Delivery Address</Header>
               <Container>
-                {addresses.length > 0 ? (
-                  addresses.map((address, index) => {
+                {addresses?.length > 0 ? (
+                  addresses?.map((address, index) => {
                     const formattedAddress = formatAddress(address);
                     if (formattedAddress) {
                       return (
@@ -222,7 +222,7 @@ const Checkout = ({ items, userData, onSubmit, currency, renderPayment }) => {
         <Segment basic>
           <Header as="h3">Order Summary</Header>
           <List divided relaxed>
-            {items.map((item, index) => (
+            {items?.map((item, index) => (
               <List.Item key={index}>
                 <Image
                   src={item.image}
@@ -235,11 +235,11 @@ const Checkout = ({ items, userData, onSubmit, currency, renderPayment }) => {
                   }}
                 />
                 <List.Content>
-                  <List.Header>{item.name}</List.Header>
+                  <List.Header>{item?.name}</List.Header>
                   <List.Description>
-                    Quantity: {item.quantity}
+                    Quantity: {item?.quantity}
                     <br />
-                    Price: {currency} {item.price}
+                    Price: {currency} {item?.price}
                   </List.Description>
                 </List.Content>
                 <List.Content floated="right">
@@ -253,7 +253,7 @@ const Checkout = ({ items, userData, onSubmit, currency, renderPayment }) => {
           <Divider />
           <Header as="h2" textAlign="right">
             Total: {currency}
-            {items.reduce(
+            {items?.reduce(
               (total, item) => total + item.price * item.quantity,
               0
             )}

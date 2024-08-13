@@ -28,6 +28,16 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
+        test: /\.css$/,
+        include: /node_modules\/c3/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.css$/,
+        include: /node_modules\/semantic-ui-css/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
       },
