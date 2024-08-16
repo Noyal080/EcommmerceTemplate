@@ -21,6 +21,7 @@ const AdminProduct = ({
   currentPage,
   totalPages,
   handlePaginationChange,
+  outofStock,
   options,
   handleChange,
 }) => {
@@ -49,15 +50,17 @@ const AdminProduct = ({
   return (
     <Container>
       <Header as="h2">
-        Products
-        <Button
-          color="blue"
-          style={{ marginLeft: 10 }}
-          onClick={() => addProduct()}
-          floated="right"
-        >
-          Add Product
-        </Button>
+        {outofStock ? "Out of Stock Products" : "Products"}
+        {!outofStock && (
+          <Button
+            color="blue"
+            style={{ marginLeft: 10 }}
+            onClick={() => addProduct()}
+            floated="right"
+          >
+            Add Product
+          </Button>
+        )}
       </Header>
       <Table celled unstackable>
         <Table.Header>
