@@ -8,7 +8,7 @@ import {
   Label,
   Popup,
 } from "semantic-ui-react";
-// import { Link } from "react-router-dom";
+
 const ProductCard = ({
   productData,
   addToCart,
@@ -125,6 +125,7 @@ const ProductCard = ({
                   floated="right"
                   onClick={() => addToCart(product)}
                   circular
+                  disabled={product?.stock_quantity === 0}
                 >
                   {" "}
                   <Icon name="cart" />{" "}

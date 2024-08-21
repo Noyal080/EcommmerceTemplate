@@ -12,6 +12,7 @@ export { default as CategoryCard } from "./CategoryCard";
 export { default as CategoryCarousel } from "./CategoryCarousel";
 export { default as CheckoutPage } from "./CheckoutPage";
 export { default as CommonModal } from "./CommonModal";
+export { default as ForgotPassword } from "./ForgotPasswordPage";
 export { default as HeroSection } from "./HeroSection";
 export { default as LoginPage } from "./LoginPage";
 export { default as ProductCard } from "./ProductCard";
