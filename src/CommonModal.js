@@ -11,7 +11,7 @@ const CommonModal = ({
   return (
     <Modal open={open} onClose={handleClose} dimmer="inverted">
       <Modal.Header> {title} </Modal.Header>
-      <Modal.Description>{modalChildren}</Modal.Description>
+      <Modal.Content>{modalChildren}</Modal.Content>
       <Modal.Actions>
         <Button negative onClick={handleClose}>
           {" "}
