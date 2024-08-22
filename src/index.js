@@ -6,6 +6,7 @@ export { default as AdminOrders } from "./AdminOrders";
 export { default as AdminPayment } from "./AdminPayment";
 export { default as AdminPaymentHistory } from "./AdminPaymentHistory";
 export { default as AdminProduct } from "./AdminProduct";
+export { default as BGTheme } from "./BGTheme";
 export { default as Carousel } from "./Carousel";
 export { default as CartDetails } from "./CartDetails";
 export { default as CategoryCard } from "./CategoryCard";
