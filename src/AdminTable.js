@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
+  Checkbox,
   Container,
   Dropdown,
   Grid,
   Header,
   Icon,
   Image,
+  Input,
   Pagination,
   Table,
 } from "semantic-ui-react";
@@ -29,15 +31,15 @@ const AdminTable = ({
   handleToggleChange,
   searchBar,
   handleSearchChange,
-  searchEvent,
   setSearchEvent,
+  searchTerm,
+  setSearchTerm,
 }) => {
-  const [searchTerm, setSearchTerm] = useState("");
   const renderCellContent = (column, row, rowIndex) => {
     const dataKey = column.key;
 
     if (column.render) {
-      return column.render(row, categories);
+      return column.render(row);
     }
 
     switch (column.type) {
@@ -67,11 +69,21 @@ const AdminTable = ({
         return row[dataKey];
     }
   };
+
+  const isOutOfStock = (row) => {
+    return row.stock_quantity <= 0;
+  };
   return (
     <Container>
-      <Header as="h2">
-        {title}
-        {searchBar ? (
+      {searchBar ? (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Header as="h2">{title}</Header>
           <div style={{ display: "flex", alignItems: "center" }}>
             <div style={{ position: "relative", width: "60%" }}>
               <Input
@@ -114,8 +126,12 @@ const AdminTable = ({
               </Button>
             )}
           </div>
-        ) : (
-          addBtnName && (
+        </div>
+      ) : (
+        <Header as={"h2"}>
+          {title}
+
+          {addBtnName && (
             <Button
               color="blue"
               style={{ marginLeft: 10 }}
@@ -124,9 +140,10 @@ const AdminTable = ({
             >
               {addBtnName}
             </Button>
-          )
-        )}
-      </Header>
+          )}
+        </Header>
+      )}
+
       <Table celled unstackable>
         <Table.Header>
           <Table.Row>
@@ -141,7 +158,10 @@ const AdminTable = ({
         <Table.Body>
           {data?.length > 0 ? (
             data?.map((row, rowIndex) => (
-              <Table.Row key={rowIndex}>
+              <Table.Row
+                key={rowIndex}
+                style={isOutOfStock(row) ? { backgroundColor: "#f8d7da" } : {}}
+              >
                 {tablecolumns.map((column, colIndex) => (
                   <Table.Cell key={colIndex}>
                     {renderCellContent(column, row, rowIndex)}

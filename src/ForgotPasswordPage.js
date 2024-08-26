@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Container, Form, Input, Message } from "semantic-ui-react";
 
 const ForgotPassword = ({ handleSubmit, loading, disabled }) => {

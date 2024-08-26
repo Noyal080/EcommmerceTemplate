@@ -1,12 +1,7 @@
 import "semantic-ui-css/semantic.min.css";
 
-export { default as AdminCategory } from "./AdminCategory";
-export { default as AdminDelivery } from "./AdminDelivery";
+export { default as AdminCharts } from "./AdminCharts";
 export { default as AdminNotifications } from "./AdminNotifications";
-export { default as AdminOrders } from "./AdminOrders";
-export { default as AdminPayment } from "./AdminPayment";
-export { default as AdminPaymentHistory } from "./AdminPaymentHistory";
-export { default as AdminProduct } from "./AdminProduct";
 export { default as AdminTable } from "./AdminTable";
 export { default as BGTheme } from "./BGTheme";
 export { default as Carousel } from "./Carousel";
