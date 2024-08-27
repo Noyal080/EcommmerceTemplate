@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Header, List, Message, Segment } from "semantic-ui-react";
-const AdminNotifications = ({ notifications }) => {
+const AdminNotifications = ({ notifications = [] }) => {
   return (
     <Container>
       <Header as="h3">Notifications</Header>
@@ -10,7 +10,7 @@ const AdminNotifications = ({ notifications }) => {
           {notifications?.length === 0 && (
             <Message info> No notifications are available. </Message>
           )}
-          {notifications.map((notification) => (
+          {notifications?.map((notification) => (
             <List.Item key={notification.id}>
               <List.Icon
                 name={

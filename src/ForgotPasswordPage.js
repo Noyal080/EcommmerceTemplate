@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Button, Container, Form, Input, Message } from "semantic-ui-react";
 
-const ForgotPassword = ({ handleSubmit, loading, disabled }) => {
+const ForgotPassword = ({
+  handleSubmit = () => {
+    alert("Handle Submit function not available");
+  },
+  loading,
+  disabled,
+}) => {
   const [formData, setFormData] = useState({
     password: "",
     retype_password: "",

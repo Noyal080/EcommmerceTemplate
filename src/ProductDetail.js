@@ -9,6 +9,7 @@ import {
   Segment,
   Statistic,
 } from "semantic-ui-react";
+import MultipleImageSlider from "./MultipleImagePlayer";
 const ProductDetails = ({
   productData,
   addtoCart,
@@ -57,12 +58,16 @@ const ProductDetails = ({
                 Out of Stock
               </div>
             )}
-            <Image
-              src={productData?.image}
-              alt={productData?.name}
-              size={size || "huge"}
-              style={{ display: "block" }}
-            />
+            {productData?.image ? (
+              <Image
+                src={productData?.image}
+                alt={productData?.name}
+                size={size || "huge"}
+                style={{ display: "block" }}
+              />
+            ) : (
+              <MultipleImageSlider images={productData?.images} />
+            )}
           </div>
           <Header as="h2">{productData?.name}</Header>
           <p>{productData?.description}</p>

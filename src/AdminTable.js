@@ -15,22 +15,23 @@ import {
 
 const AdminTable = ({
   data,
-  tablecolumns,
-  addBtnName,
-  addData,
-  editData,
-  deleteData,
-  viewData,
-  currentPage,
-  totalPages,
-  handlePaginationChange,
-  options,
-  handleChange,
-  title,
-  noItemMsg,
-  handleToggleChange,
-  searchBar,
-  handleSearchChange,
+  tablecolumns = [],
+  addBtnName = "Add Data",
+  addData = () => alert("Add data function is not available"),
+  editData = () => alert("Edit data function is not available"),
+  deleteData = () => alert("Delete data function is not available"),
+  viewData = () => alert("View data function is not available"),
+  currentPage = 1,
+  totalPages = 1,
+  handlePaginationChange = () => alert("Pagination change is not available"),
+  options = [],
+  handleChange = () => alert("Dropdown change handler is not provided"),
+  title = "Title Here",
+  noItemMsg = "No Data found",
+  noColumnMsg = "No columns available",
+  handleToggleChange = () => alert("Checkbox handler is not provided"),
+  searchBar = false,
+  handleSearchChange = () => alert("Search change handler is not provided"),
   setSearchEvent,
   searchTerm,
   setSearchTerm,
@@ -73,6 +74,7 @@ const AdminTable = ({
   const isOutOfStock = (row) => {
     return row.stock_quantity <= 0;
   };
+
   return (
     <Container>
       {searchBar ? (
@@ -144,70 +146,81 @@ const AdminTable = ({
         </Header>
       )}
 
-      <Table celled unstackable>
-        <Table.Header>
-          <Table.Row>
-            {tablecolumns?.map((column, index) => (
-              <Table.HeaderCell key={index}>{column?.header}</Table.HeaderCell>
-            ))}
-            {(editData || deleteData || viewData) && (
-              <Table.HeaderCell> Actions </Table.HeaderCell>
-            )}
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {data?.length > 0 ? (
-            data?.map((row, rowIndex) => (
-              <Table.Row
-                key={rowIndex}
-                style={isOutOfStock(row) ? { backgroundColor: "#f8d7da" } : {}}
-              >
-                {tablecolumns.map((column, colIndex) => (
-                  <Table.Cell key={colIndex}>
-                    {renderCellContent(column, row, rowIndex)}
-                  </Table.Cell>
-                ))}
-                {(editData || deleteData || viewData) && (
-                  <Table.Cell>
-                    {viewData && (
-                      <Icon
-                        size="large"
-                        name="eye outline"
-                        onClick={() => viewData(row)}
-                        style={{ cursor: "pointer", marginRight: "10px" }}
-                      />
-                    )}
-                    {editData && (
-                      <Icon
-                        color="blue"
-                        size="large"
-                        name="edit outline"
-                        onClick={() => editData(row)}
-                        style={{ cursor: "pointer", marginRight: "10px" }}
-                      />
-                    )}
-                    {deleteData && (
-                      <Icon
-                        color="red"
-                        name="trash alternate"
-                        size="large"
-                        onClick={() => deleteData(row)}
-                        style={{ cursor: "pointer" }}
-                      />
-                    )}
-                  </Table.Cell>
-                )}
-              </Table.Row>
-            ))
-          ) : (
+      {tablecolumns?.length === 0 ? (
+        <h3 style={{ textAlign: "center" }}>{noColumnMsg}</h3>
+      ) : (
+        <Table celled unstackable>
+          <Table.Header>
             <Table.Row>
-              <Table.Cell colSpan={tablecolumns.length + 1} textAlign="center">
-                <h3> {noItemMsg} </h3>
-              </Table.Cell>
+              {tablecolumns?.map((column, index) => (
+                <Table.HeaderCell key={index}>
+                  {column?.header}
+                </Table.HeaderCell>
+              ))}
+              {(editData || deleteData || viewData) && (
+                <Table.HeaderCell> Actions </Table.HeaderCell>
+              )}
             </Table.Row>
-          )}
-        </Table.Body>
-      </Table>
+          </Table.Header>
+          <Table.Body>
+            {data?.length > 0 ? (
+              data?.map((row, rowIndex) => (
+                <Table.Row
+                  key={rowIndex}
+                  style={
+                    isOutOfStock(row) ? { backgroundColor: "#f8d7da" } : {}
+                  }
+                >
+                  {tablecolumns?.map((column, colIndex) => (
+                    <Table.Cell key={colIndex}>
+                      {renderCellContent(column, row, rowIndex)}
+                    </Table.Cell>
+                  ))}
+                  {(editData || deleteData || viewData) && (
+                    <Table.Cell>
+                      {viewData && (
+                        <Icon
+                          size="large"
+                          name="eye outline"
+                          onClick={() => viewData(row)}
+                          style={{ cursor: "pointer", marginRight: "10px" }}
+                        />
+                      )}
+                      {editData && (
+                        <Icon
+                          color="blue"
+                          size="large"
+                          name="edit outline"
+                          onClick={() => editData(row)}
+                          style={{ cursor: "pointer", marginRight: "10px" }}
+                        />
+                      )}
+                      {deleteData && (
+                        <Icon
+                          color="red"
+                          name="trash alternate"
+                          size="large"
+                          onClick={() => deleteData(row)}
+                          style={{ cursor: "pointer" }}
+                        />
+                      )}
+                    </Table.Cell>
+                  )}
+                </Table.Row>
+              ))
+            ) : (
+              <Table.Row>
+                <Table.Cell
+                  colSpan={tablecolumns.length + 1}
+                  textAlign="center"
+                >
+                  <h3> {noItemMsg} </h3>
+                </Table.Cell>
+              </Table.Row>
+            )}
+          </Table.Body>
+        </Table>
+      )}
       {totalPages > 1 && (
         <Grid centered>
           <Pagination

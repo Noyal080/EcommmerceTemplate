@@ -10,13 +10,16 @@ import {
 } from "semantic-ui-react";
 const CartDetails = ({
   getCartItems,
-  updateCartItems,
-  removeCartItems,
-  currency,
-  handleImageClick,
-  handleCheckout,
+  updateCartItems = () => alert("updateCartItems function not provided"),
+  removeCartItems = () => alert("removeCartItems function not provided"),
+  currency = "Rs.",
+  handleImageClick = () => alert("handleImageClick function not provided"),
+  handleCheckout = () => alert("handleCheckout function not provided"),
 }) => {
-  const [cartItems, setCartItems] = useState(getCartItems());
+  const [cartItems, setCartItems] = useState(
+    typeof getCartItems === "function" ? getCartItems() : []
+  );
+
   return (
     <Container>
       <Header as="h2">My Cart</Header>

@@ -8,7 +8,7 @@ const CategoryCard = ({ categoryData, handleRoute, itemsPerRow }) => {
         stackable
         style={{ margin: "0px 50px 50px 50px" }}
       >
-        {categoryData.length > 0 ? (
+        {categoryData?.length > 0 ? (
           categoryData?.map((categories) => (
             <Card
               key={categories?.id}
