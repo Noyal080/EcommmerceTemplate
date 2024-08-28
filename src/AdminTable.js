@@ -16,7 +16,7 @@ import {
 const AdminTable = ({
   data,
   tablecolumns = [],
-  addBtnName = "Add Data",
+  addBtnName,
   addData = () => alert("Add data function is not available"),
   editData = () => alert("Edit data function is not available"),
   deleteData = () => alert("Delete data function is not available"),
