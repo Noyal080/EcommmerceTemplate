@@ -142,7 +142,7 @@ const ProductCard = ({
       ) : (
         <Card style={{ height: "300px" }}>
           <Card.Content>
-            <Card.Header>No Product Found </Card.Header>
+            <Card.Header>No Product Data </Card.Header>
           </Card.Content>
         </Card>
       )}

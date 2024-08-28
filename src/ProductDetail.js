@@ -9,15 +9,15 @@ import {
   Segment,
   Statistic,
 } from "semantic-ui-react";
-import MultipleImageSlider from "./MultipleImagePlayer";
+import MultipleImagePlayer from "./MultipleImagePlayer";
 const ProductDetails = ({
-  productData,
-  addtoCart,
-  buyNow,
-  currency,
+  productData = [],
+  addtoCart = () => alert("Add to Cart function not added"),
+  buyNow = () => alert("Buy now function not added"),
+  currency = "Rs.",
   shareExist,
   shareButton,
-  quantity,
+  quantity = 1,
   setQuantity,
   size,
 }) => {
@@ -60,13 +60,23 @@ const ProductDetails = ({
             )}
             {productData?.image ? (
               <Image
-                src={productData?.image}
+                src={
+                  productData?.image ||
+                  "https://via.placeholder.com/800x400.png?text=Product+Image "
+                }
                 alt={productData?.name}
                 size={size || "huge"}
                 style={{ display: "block" }}
               />
             ) : (
-              <MultipleImageSlider images={productData?.images} />
+              <MultipleImagePlayer
+                images={
+                  productData?.images || [
+                    "https://via.placeholder.com/800x400.png?text=Product+Image+1 ",
+                    "https://via.placeholder.com/800x400.png?text=Product+Image ",
+                  ]
+                }
+              />
             )}
           </div>
           <Header as="h2">{productData?.name}</Header>
@@ -77,11 +87,16 @@ const ProductDetails = ({
                 <Statistic horizontal size={"small"}>
                   <Statistic.Value>
                     {currency}
-                    {productData?.price}
+                    {productData?.price ? productData?.price : 0}
                   </Statistic.Value>
                   <Statistic.Label>Cost per Unit</Statistic.Label>
                 </Statistic>
-                <p>Min. Order Quantity: {productData?.min_order_quantity}</p>
+                <p>
+                  Min. Order Quantity:{" "}
+                  {productData?.min_order_quantity
+                    ? productData?.min_order_quantity
+                    : 1}
+                </p>
               </Grid.Column>
               {shareExist && (
                 <Grid.Column width={8} textAlign="right">
@@ -196,7 +211,7 @@ const ProductDetails = ({
                         <input
                           type="number"
                           min={productData?.min_order_quantity}
-                          value={quantity}
+                          value={quantity || 0}
                           onChange={(e) =>
                             handleQuantityChange(parseInt(e.target.value))
                           }
@@ -221,7 +236,8 @@ const ProductDetails = ({
                   <Grid.Row>
                     <Grid.Column width={16}>
                       <p style={{ fontSize: 16 }}>
-                        <b>Cost per Unit:</b> {currency} {productData?.price}
+                        <b>Cost per Unit:</b> {currency}{" "}
+                        {productData?.price ? productData?.price : 0}
                       </p>
                     </Grid.Column>
                   </Grid.Row>

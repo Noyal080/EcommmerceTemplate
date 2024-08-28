@@ -9,10 +9,11 @@ import {
 } from "semantic-ui-react";
 
 const LoginPage = ({
-  handleLogin,
+  handleLogin = () => alert("Login function is not added"),
   googleLogin,
   captcha,
-  handleForgotPassword,
+  handleForgotPassword = () =>
+    alert("Forgot Password function / route is not added"),
   loading,
   disabled,
 }) => {

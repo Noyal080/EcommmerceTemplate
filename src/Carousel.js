@@ -2,13 +2,31 @@ import React, { useEffect, useState } from "react";
 import { Image } from "semantic-ui-react";
 import "./carousel.css";
 
-const Carousel = ({ items, style }) => {
+const dummyData = [
+  {
+    image: "https://via.placeholder.com/800x400.png?text=Slide+1",
+    title: "Slide 1",
+    description: "This is the first slide.",
+  },
+  {
+    image: "https://via.placeholder.com/800x400.png?text=Slide+2",
+    title: "Slide 2",
+    description: "This is the second slide.",
+  },
+  {
+    image: "https://via.placeholder.com/800x400.png?text=Slide+3",
+    title: "Slide 3",
+    description: "This is the third slide.",
+  },
+];
+
+const Carousel = ({ items = dummyData, style }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [items.length]);
@@ -30,7 +48,7 @@ const Carousel = ({ items, style }) => {
   return (
     <div className="carousel-container" style={{ ...style }}>
       <div className="carousel" style={{ "--current-index": currentIndex }}>
-        {items.map((item, index) => (
+        {items?.map((item, index) => (
           <div
             key={index}
             className={`carousel-item ${

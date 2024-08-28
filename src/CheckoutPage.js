@@ -15,7 +15,68 @@ import {
   Step,
 } from "semantic-ui-react";
 
-const Checkout = ({ items, userData, onSubmit, currency, renderPayment }) => {
+const AddressForm = ({
+  newAddress,
+  handleNewAddressChange,
+  handleAddNewAddress,
+}) => (
+  <Form>
+    <Form.Group widths={"equal"}>
+      <Form.Input
+        label="Address"
+        name="address"
+        value={newAddress.address}
+        onChange={handleNewAddressChange}
+      />
+      <Form.Input
+        label="City"
+        name="city"
+        value={newAddress.city}
+        onChange={handleNewAddressChange}
+      />
+      <Form.Input
+        label="State"
+        name="state"
+        value={newAddress.state}
+        onChange={handleNewAddressChange}
+      />
+    </Form.Group>
+    <Form.Group widths={"equal"}>
+      <Form.Input
+        label="Postal Code"
+        name="postalCode"
+        value={newAddress.postalCode}
+        onChange={handleNewAddressChange}
+      />
+      <Form.Input
+        label="Country"
+        name="country"
+        value={newAddress.country}
+        onChange={handleNewAddressChange}
+      />
+    </Form.Group>
+    <Button
+      onClick={handleAddNewAddress}
+      disabled={
+        !newAddress.address ||
+        !newAddress.city ||
+        !newAddress.state ||
+        !newAddress.postalCode ||
+        !newAddress.country
+      }
+    >
+      Add New Address
+    </Button>
+  </Form>
+);
+
+const Checkout = ({
+  items = [],
+  userData,
+  onSubmit = () => alert("Handle Form submission"),
+  currency = "Rs.",
+  renderPayment,
+}) => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState();
   const nextStep = () => setStep(step + 1);
@@ -29,15 +90,17 @@ const Checkout = ({ items, userData, onSubmit, currency, renderPayment }) => {
     state: "",
   });
   const [selectedAddress, setSelectedAddress] = useState(null);
-
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
 
   useEffect(() => {
     if (userData) {
       setFormData({
-        name: userData?.name,
-        phone: userData?.phone,
+        name:
+          userData?.business_name ||
+          `${userData?.first_name} ${userData?.last_name}`,
+        phone: userData?.contact_number,
       });
+
       const profileAddress = {
         city: userData?.city,
         address: userData?.address,
@@ -45,8 +108,15 @@ const Checkout = ({ items, userData, onSubmit, currency, renderPayment }) => {
         country: userData?.country,
         state: userData?.state,
       };
-      setAddresses([profileAddress]);
-      setSelectedAddress(profileAddress);
+
+      const hasAddressDetails = Object.values(profileAddress).some(
+        (value) => value && value.trim() !== ""
+      );
+
+      if (hasAddressDetails) {
+        setAddresses([profileAddress]);
+        setSelectedAddress(profileAddress);
+      }
     }
   }, [userData]);
 
@@ -127,30 +197,34 @@ const Checkout = ({ items, userData, onSubmit, currency, renderPayment }) => {
             <Segment>
               <Header as={"h4"}>Delivery Address</Header>
               <Container>
-                {addresses?.length > 0 ? (
-                  addresses?.map((address, index) => {
+                {addresses.length > 0 ? (
+                  addresses.map((address, index) => {
                     const formattedAddress = formatAddress(address);
-                    if (formattedAddress) {
-                      return (
-                        <Container as={Header} key={index}>
-                          <Radio
-                            label={formattedAddress}
-                            name="address"
-                            value={address}
-                            checked={selectedAddress === address}
-                            onChange={() => setSelectedAddress(address)}
-                          />
-                        </Container>
-                      );
-                    }
-                    return null;
+                    return (
+                      <div key={index}>
+                        <Radio
+                          label={formattedAddress}
+                          name="address"
+                          value={address}
+                          checked={selectedAddress === address}
+                          onChange={() => setSelectedAddress(address)}
+                        />
+                      </div>
+                    );
                   })
                 ) : (
-                  <Message as="h5" color="red">
-                    Please add a new address.
-                  </Message>
+                  <AddressForm
+                    newAddress={newAddress}
+                    handleAddNewAddress={handleAddNewAddress}
+                    handleNewAddressChange={handleNewAddressChange}
+                  />
                 )}
               </Container>
+              {addresses.length > 0 && (
+                <Button onClick={() => setShowNewAddressForm(true)}>
+                  Add New Address
+                </Button>
+              )}
               <Modal
                 open={showNewAddressForm}
                 onClose={() => setShowNewAddressForm(false)}
@@ -159,52 +233,19 @@ const Checkout = ({ items, userData, onSubmit, currency, renderPayment }) => {
               >
                 <Modal.Header>Set New Address</Modal.Header>
                 <Modal.Content>
-                  <Form>
-                    <Form.Group widths={"equal"}>
-                      <Form.Input
-                        label="Address"
-                        name="address"
-                        value={newAddress.address}
-                        onChange={handleNewAddressChange}
-                      />
-                      <Form.Input
-                        label="City"
-                        name="city"
-                        value={newAddress.city}
-                        onChange={handleNewAddressChange}
-                      />
-                      <Form.Input
-                        label="State"
-                        name="state"
-                        value={newAddress.state}
-                        onChange={handleNewAddressChange}
-                      />
-                    </Form.Group>
-                    <Form.Group widths={"equal"}>
-                      <Form.Input
-                        label="Postal Code"
-                        name="postalCode"
-                        value={newAddress.postalCode}
-                        onChange={handleNewAddressChange}
-                      />
-                      <Form.Input
-                        label="Country"
-                        name="country"
-                        value={newAddress.country}
-                        onChange={handleNewAddressChange}
-                      />
-                    </Form.Group>
-                    <Button onClick={handleAddNewAddress}>
-                      Add New Address
-                    </Button>
-                  </Form>
+                  <AddressForm
+                    newAddress={newAddress}
+                    handleAddNewAddress={handleAddNewAddress}
+                    handleNewAddressChange={handleNewAddressChange}
+                  />
                 </Modal.Content>
               </Modal>
-              <Button onClick={() => setShowNewAddressForm(true)}>
-                Add New Address
-              </Button>
             </Segment>
-            <Button primary onClick={nextStep}>
+            <Button
+              primary
+              onClick={nextStep}
+              disabled={!formData?.name || !formData?.phone || !selectedAddress}
+            >
               Next
             </Button>
           </Form>
@@ -222,38 +263,42 @@ const Checkout = ({ items, userData, onSubmit, currency, renderPayment }) => {
         <Segment basic>
           <Header as="h3">Order Summary</Header>
           <List divided relaxed>
-            {items?.map((item, index) => (
-              <List.Item key={index}>
-                <Image
-                  src={item.image}
-                  size="medium"
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    objectFit: "cover",
-                    marginRight: "10px",
-                  }}
-                />
-                <List.Content>
-                  <List.Header>{item?.name}</List.Header>
-                  <List.Description>
-                    Quantity: {item?.quantity}
-                    <br />
-                    Price: {currency} {item?.price}
-                  </List.Description>
-                </List.Content>
-                <List.Content floated="right">
-                  <span>
-                    {currency} {item.price * item.quantity}
-                  </span>
-                </List.Content>
-              </List.Item>
-            ))}
+            {items.length > 0 ? (
+              items.map((item, index) => (
+                <List.Item key={index}>
+                  <Image
+                    src={item.image}
+                    size="medium"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      objectFit: "cover",
+                      marginRight: "10px",
+                    }}
+                  />
+                  <List.Content>
+                    <List.Header>{item?.name}</List.Header>
+                    <List.Description>
+                      Quantity: {item?.quantity}
+                      <br />
+                      Price: {currency} {item?.price}
+                    </List.Description>
+                  </List.Content>
+                  <List.Content floated="right">
+                    <span>
+                      {currency} {item.price * item.quantity}
+                    </span>
+                  </List.Content>
+                </List.Item>
+              ))
+            ) : (
+              <Message info> No Orders found </Message>
+            )}
           </List>
           <Divider />
           <Header as="h2" textAlign="right">
             Total: {currency}
-            {items?.reduce(
+            {items.reduce(
               (total, item) => total + item.price * item.quantity,
               0
             )}
@@ -263,4 +308,5 @@ const Checkout = ({ items, userData, onSubmit, currency, renderPayment }) => {
     </Grid>
   );
 };
+
 export default Checkout;

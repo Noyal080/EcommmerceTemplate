@@ -1,24 +1,18 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Container,
-  Grid,
-  Header,
-  Image,
-  Input,
-} from "semantic-ui-react";
+import { Button, Container, Grid, Header, Input } from "semantic-ui-react";
 import BGTHEME from "./BGTheme";
+
 const HeroSection = ({
   bgImage,
-  pinnedProduct,
-  headerText,
-  subText,
+  pinnedProduct = [],
+  headerText = "Header Text",
+  subText = "Sub Text",
   searchPlaceholder,
-  handleKeyDown,
+  handleKeyDown = () => alert("Search function triggered"),
   frequentlySearchedItems,
   productTitle,
-  handleRoute,
-  onPressExplore,
+  handleRoute = () => alert("Handle Route function for product is missing"),
+  onPressExplore = () => alert("Explore Button route is missing"),
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   return (
@@ -41,50 +35,56 @@ const HeroSection = ({
               {headerText}
             </h1>
             <p style={{ fontSize: "1.2em", color: "white" }}>{subText}</p>
-            <Input
-              fluid
-              icon="search"
-              iconPosition="left"
-              placeholder={searchPlaceholder}
-              style={{ minWidth: 250, maxWidth: "70%", marginBottom: "20px" }}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <p
-              style={{
-                fontSize: "1.2em",
-                color: "white",
-                marginTop: "7.5vh",
-              }}
-            >
-              Frequently Searched Items:
-            </p>
-            <div>
-              {frequentlySearchedItems?.map((item) => (
-                <Button
-                  key={item.label}
-                  as="a"
-                  href={item.link}
+            {searchPlaceholder && (
+              <Input
+                fluid
+                icon="search"
+                iconPosition="left"
+                placeholder={searchPlaceholder}
+                style={{ minWidth: 250, maxWidth: "70%", marginBottom: "20px" }}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={() => handleKeyDown(searchTerm)}
+              />
+            )}
+            {frequentlySearchedItems && (
+              <>
+                <p
                   style={{
-                    margin: "5px",
-                    borderRadius: "50px",
-                    backgroundColor: "transparent",
+                    fontSize: "1.2em",
                     color: "white",
-                    border: "1px solid white",
+                    marginTop: "7.5vh",
                   }}
                 >
-                  {item.label}
-                </Button>
-              ))}
-            </div>
+                  Frequently Searched Items:
+                </p>
+                <div>
+                  {frequentlySearchedItems?.map((item) => (
+                    <Button
+                      key={item.label}
+                      as="a"
+                      href={item.link}
+                      style={{
+                        margin: "5px",
+                        borderRadius: "50px",
+                        backgroundColor: "transparent",
+                        color: "white",
+                        border: "1px solid white",
+                      }}
+                    >
+                      {item.label}
+                    </Button>
+                  ))}
+                </div>
+              </>
+            )}
           </Grid.Column>
           {pinnedProduct?.length > 0 && (
             <Grid.Column
               width={6}
               style={{ backgroundColor: "#E7ECEF", borderRadius: 20 }}
             >
-              <Grid.Column width={6}>
+              <Grid.Column width={6} stretched>
                 <Header>
                   <small>
                     {productTitle ? productTitle : "HIGHLIGHTED PRODUCTS"}
@@ -100,9 +100,20 @@ const HeroSection = ({
                         textAlign: "center",
                         color: "black",
                         paddingTop: 0,
+                        cursor: "pointer",
                       }}
                     >
-                      <Image src={product?.image} style={{ height: 120 }} />
+                      <div
+                        style={{
+                          backgroundImage: `url("${product?.image}")`,
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          height: 120,
+                          width: "100%",
+                          borderRadius: 10,
+                        }}
+                      />
                       <b>{product.name}</b>
                     </Grid.Column>
                   ))}

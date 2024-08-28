@@ -11,6 +11,7 @@ import {
   Image,
   Input,
   List,
+  Message,
   Segment,
   TextArea,
 } from "semantic-ui-react";
@@ -144,15 +145,15 @@ const ProfileEditForm = ({ editForm, setEditForm }) => {
 };
 
 const ProfilePage = ({
-  admin,
+  admin = false,
   profileData,
   recentOrderData,
-  updateProfile,
-  handleLogout,
-  deleteAccount,
-  dashboardLink,
-  currency,
-  handleOrderClick,
+  updateProfile = () => alert("Update Profile function is not available"),
+  handleLogout = () => alert("Logout function is not available"),
+  deleteAccount = () => alert("Delete Account function is not available"),
+  dashboardLink = () => alert("Add dashboard route"),
+  currency = "Rs .",
+  handleOrderClick = () => alert("Handle Order View Route not available"),
 }) => {
   const [editView, setEditView] = useState(false);
   const [editForm, setEditForm] = useState();
@@ -201,79 +202,85 @@ const ProfilePage = ({
   };
 
   const renderRecentOrders = () => {
-    if (recentOrderData?.length === 0) {
-      return <p>No recent orders found.</p>;
-    }
     return (
       <Grid columns={3} stackable>
-        {recentOrderData?.map((order) => (
-          <Grid.Column key={order.id}>
-            <Segment
-              raised
-              onClick={() => handleOrderClick(order)}
-              style={{ cursor: "pointer" }}
-            >
-              <Header as="h3" style={{ color: "#2185d0" }}>
-                Order #{order.id}
-              </Header>
-              <Card fluid>
-                <Card.Content>
-                  {order.products.map((product, index) => (
-                    <Card key={index} style={{ marginBottom: "10px" }}>
-                      <Grid>
-                        <Grid.Column width={5}>
-                          <div
+        {recentOrderData?.length > 0 ? (
+          recentOrderData?.map((order) => (
+            <Grid.Column key={order.id}>
+              <Segment
+                raised
+                onClick={() => handleOrderClick(order)}
+                style={{ cursor: "pointer" }}
+              >
+                <Header as="h3" style={{ color: "#2185d0" }}>
+                  Order #{order.id}
+                </Header>
+                <Card fluid>
+                  <Card.Content>
+                    {order.products.map((product, index) => (
+                      <Card key={index} style={{ marginBottom: "10px" }}>
+                        <Grid>
+                          <Grid.Column width={5}>
+                            <div
+                              style={{
+                                backgroundImage: `url("${product?.image}")`,
+                                backgroundPosition: "center",
+                                backgroundRepeat: "no-repeat",
+                                backgroundSize: "cover",
+                                height: "100px",
+                                width: "100px",
+                                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                                cursor: "pointer",
+                                // borderRadius: "8px",
+                              }}
+                            />
+                          </Grid.Column>
+                          <Grid.Column
+                            width={11}
+                            verticalAlign="middle"
                             style={{
-                              backgroundImage: `url("${product?.image}")`,
-                              backgroundPosition: "center",
-                              backgroundRepeat: "no-repeat",
-                              backgroundSize: "cover",
-                              height: "100px",
-                              width: "100px",
-                              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                              cursor: "pointer",
-                              borderRadius: "8px",
+                              paddingLeft: "20px",
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "center",
                             }}
-                          />
-                        </Grid.Column>
-                        <Grid.Column
-                          width={11}
-                          verticalAlign="middle"
-                          style={{
-                            paddingLeft: "20px",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Card.Description>
-                            <Header as="h4" style={{ marginBottom: "5px" }}>
-                              {product.product_name}
-                            </Header>
-                            <p style={{ fontSize: "1rem", color: "#666" }}>
-                              {product.quantity} pcs - {currency}
-                              {product.price.toFixed(2)}
-                            </p>
-                          </Card.Description>
-                        </Grid.Column>
-                      </Grid>
-                    </Card>
-                  ))}
-                </Card.Content>
-                <Card.Content extra>
-                  <Header as="h4">
-                    Total Price: {currency}{" "}
-                    {calculateTotalPrice(order).toFixed(2)}
-                  </Header>
-                  <p>
-                    Order Date:{" "}
-                    {new Date(order.order_date).toLocaleDateString()}
-                  </p>
-                </Card.Content>
-              </Card>
-            </Segment>
+                          >
+                            <Card.Description>
+                              <Header as="h4" style={{ marginBottom: "5px" }}>
+                                {product.product_name}
+                              </Header>
+                              <p style={{ fontSize: "1rem", color: "#666" }}>
+                                {product.quantity} pcs - {currency}
+                                {product.price.toFixed(2)}
+                              </p>
+                            </Card.Description>
+                          </Grid.Column>
+                        </Grid>
+                      </Card>
+                    ))}
+                  </Card.Content>
+                  <Card.Content extra>
+                    <Header as="h4">
+                      Total Price: {currency}{" "}
+                      {calculateTotalPrice(order).toFixed(2)}
+                    </Header>
+                    <p>
+                      Order Date:{" "}
+                      {new Date(order.order_date).toLocaleDateString()}
+                    </p>
+                    <p style={{ fontWeight: "bold", color: "#2185d0" }}>
+                      Status: {order.status}
+                    </p>
+                  </Card.Content>
+                </Card>
+              </Segment>
+            </Grid.Column>
+          ))
+        ) : (
+          <Grid.Column>
+            <Message info> No Orders has been placed. </Message>
           </Grid.Column>
-        ))}
+        )}
       </Grid>
     );
   };
@@ -292,7 +299,10 @@ const ProfilePage = ({
                 <Grid.Column>
                   <div
                     style={{
-                      backgroundImage: `url("${profileData?.profile_pic}")`,
+                      backgroundImage: `url(${
+                        profileData?.profile_pic ||
+                        "https://via.placeholder.com/400x300.png?text=Profile+Photo"
+                      })`,
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",
                       backgroundSize: "cover",

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Button, Card, Container, Loader } from "semantic-ui-react";
 import BGTHEME from "./BGTheme";
 const CategoryCarousel = ({
-  categoryData,
-  handleRoute,
-  onPressExplore,
+  categoryData = [],
+  handleRoute = () => alert("Route for category not handled"),
+  onPressExplore = () => alert("Explore Route not added"),
   bgImage,
 }) => {
   const [position, setPosition] = useState(0);
@@ -28,6 +28,7 @@ const CategoryCarousel = ({
       );
     }
   };
+
   return (
     <BGTHEME bgImage={bgImage}>
       <div style={{ position: "relative" }}>
@@ -91,7 +92,7 @@ const CategoryCarousel = ({
             ) : (
               <Card style={{ height: "200px" }}>
                 <Card.Content>
-                  <Card.Header>No Category Found</Card.Header>
+                  <Card.Header>No Category Data Found</Card.Header>
                 </Card.Content>
               </Card>
             )}

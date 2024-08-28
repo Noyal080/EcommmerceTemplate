@@ -11,8 +11,9 @@ import {
 const RegisterPage = ({
   profileOptions,
   captcha,
-  handleRegister,
-  handleForgotPassword,
+  handleRegister = () => alert("Register function is not added"),
+  handleForgotPassword = () =>
+    alert("Forgot Password function / route is not added"),
   disabled,
   loading,
 }) => {

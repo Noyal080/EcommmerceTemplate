@@ -1,5 +1,8 @@
 import React from "react";
-const BGTHEME = ({ bgImage, children }) => {
+const BGTHEME = ({
+  bgImage = "https://via.placeholder.com/800x400.png?text=Background+Image",
+  children,
+}) => {
   return (
     <div
       style={{

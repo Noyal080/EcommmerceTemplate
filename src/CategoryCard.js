@@ -33,7 +33,7 @@ const CategoryCard = ({ categoryData, handleRoute, itemsPerRow }) => {
         ) : (
           <Card style={{ height: "300px" }}>
             <Card.Content>
-              <Card.Header>No categories found </Card.Header>
+              <Card.Header>No Category data found </Card.Header>
             </Card.Content>
           </Card>
         )}

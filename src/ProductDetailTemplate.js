@@ -14,22 +14,23 @@ import {
   Tab,
   TextArea,
 } from "semantic-ui-react";
+import MultipleImagePlayer from "./MultipleImagePlayer";
 
 const ProductDetailTemplate = ({
-  productData,
-  addtoCart,
-  buyNow,
-  currency,
+  productData = [],
+  addtoCart = () => alert("Add to Cart function not added "),
+  buyNow = () => alert("Buy now function not added"),
+  currency = "Rs.",
   shareExist,
   shareButton,
-  quantity,
+  quantity = 1,
   setQuantity,
   size,
-  reviewData,
-  discussiondata,
-  changeRating,
-  addComment,
-  handleAddDiscussion,
+  reviewData = [],
+  discussiondata = [],
+  changeRating = () => alert("Change Rating function not added"),
+  addComment = () => alert("Add Comments function not added"),
+  handleAddDiscussion = () => alert("Adding discussion function not added"),
 }) => {
   const certificates_conditions = productData?.certifications;
   const organic_conditions = productData?.organic;
@@ -58,11 +59,16 @@ const ProductDetailTemplate = ({
                   <Statistic horizontal size={"small"}>
                     <Statistic.Value>
                       {currency}
-                      {productData?.price}
+                      {productData?.price ? productData?.price : 0}
                     </Statistic.Value>
                     <Statistic.Label>Cost per Unit</Statistic.Label>
                   </Statistic>
-                  <p>Min. Order Quantity: {productData?.min_order_quantity}</p>
+                  <p>
+                    Min. Order Quantity:{" "}
+                    {productData?.min_order_quantity
+                      ? productData?.min_order_quantity
+                      : 1}
+                  </p>
                 </Grid.Column>
                 {shareExist && (
                   <Grid.Column width={8} textAlign="right">
@@ -224,12 +230,26 @@ const ProductDetailTemplate = ({
                 Out of Stock
               </div>
             )}
-            <Image
-              src={productData?.image}
-              alt={productData?.name}
-              size={size || "huge"}
-              style={{ display: "block" }}
-            />
+            {productData?.image ? (
+              <Image
+                src={
+                  productData?.image ||
+                  "https://via.placeholder.com/800x400.png?text=Product+Image "
+                }
+                alt={productData?.name}
+                size={size || "huge"}
+                style={{ display: "block" }}
+              />
+            ) : (
+              <MultipleImagePlayer
+                images={
+                  productData?.images || [
+                    "https://via.placeholder.com/800x400.png?text=Product+Image+1 ",
+                    "https://via.placeholder.com/800x400.png?text=Product+Image ",
+                  ]
+                }
+              />
+            )}
           </div>
           <Header as="h2">{productData?.name}</Header>
           <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
@@ -292,7 +312,8 @@ const ProductDetailTemplate = ({
                 <Grid.Row>
                   <Grid.Column width={16}>
                     <p style={{ fontSize: 16 }}>
-                      <b>Cost per Unit:</b> {currency} {productData?.price}
+                      <b>Cost per Unit:</b> {currency}{" "}
+                      {productData?.price ? productData?.price : 0}
                     </p>
                   </Grid.Column>
                 </Grid.Row>
