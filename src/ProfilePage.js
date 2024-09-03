@@ -10,6 +10,7 @@ import {
   Icon,
   Image,
   Input,
+  Label,
   List,
   Message,
   Segment,
@@ -153,7 +154,7 @@ const ProfilePage = ({
   deleteAccount = () => alert("Delete Account function is not available"),
   dashboardLink = () => alert("Add dashboard route"),
   currency = "Rs .",
-  handleOrderClick = () => alert("Handle Order View Route not available"),
+  handleProductClick = () => alert("Handle Product View Route not available"),
 }) => {
   const [editView, setEditView] = useState(false);
   const [editForm, setEditForm] = useState();
@@ -201,27 +202,37 @@ const ProfilePage = ({
     );
   };
 
+  const getStatusColor = (status) => {
+    switch (status?.toLowerCase()) {
+      case "pending":
+        return "orange";
+      case "completed":
+        return "green";
+      case "cancelled":
+        return "red";
+      default:
+        return "grey";
+    }
+  };
+
   const renderRecentOrders = () => {
     return (
-      <Grid columns={3} stackable>
+      <Grid columns={3} stackable doubling>
         {recentOrderData?.length > 0 ? (
           recentOrderData?.map((order) => (
             <Grid.Column key={order.id}>
-              <Segment
-                raised
-                onClick={() => handleOrderClick(order)}
-                style={{ cursor: "pointer" }}
-              >
-                <Header as="h3" style={{ color: "#2185d0" }}>
-                  Order #{order.id}
-                </Header>
+              <Segment basic raised>
                 <Card fluid>
                   <Card.Content>
+                    <Header as="h3" style={{ color: "#2185d0" }}>
+                      Order #{order.id}
+                    </Header>
                     {order.products.map((product, index) => (
                       <Card key={index} style={{ marginBottom: "10px" }}>
                         <Grid>
                           <Grid.Column width={5}>
                             <div
+                              onClick={() => handleProductClick(product)}
                               style={{
                                 backgroundImage: `url("${product?.image}")`,
                                 backgroundPosition: "center",
@@ -231,7 +242,7 @@ const ProfilePage = ({
                                 width: "100px",
                                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                                 cursor: "pointer",
-                                // borderRadius: "8px",
+                                borderRadius: "8px",
                               }}
                             />
                           </Grid.Column>
@@ -258,19 +269,49 @@ const ProfilePage = ({
                         </Grid>
                       </Card>
                     ))}
+                    <div
+                      style={{
+                        borderTop: "1px solid gray",
+                        padding: 5,
+                        margin: 5,
+                      }}
+                    >
+                      <p>
+                        Order Date:{" "}
+                        {new Date(order.order_date).toLocaleDateString()}
+                      </p>
+                      {order.recieved_date && (
+                        <p>
+                          Received Date:{" "}
+                          {new Date(order.recieved_date).toLocaleDateString()}
+                        </p>
+                      )}
+                    </div>
                   </Card.Content>
                   <Card.Content extra>
-                    <Header as="h4">
-                      Total Price: {currency}{" "}
-                      {calculateTotalPrice(order).toFixed(2)}
-                    </Header>
-                    <p>
-                      Order Date:{" "}
-                      {new Date(order.order_date).toLocaleDateString()}
-                    </p>
-                    <p style={{ fontWeight: "bold", color: "#2185d0" }}>
-                      Status: {order.status}
-                    </p>
+                    <Grid columns="equal">
+                      <Grid.Row>
+                        <Grid.Column>
+                          <Header as="h4">
+                            Total Price: {currency}{" "}
+                            {calculateTotalPrice(order).toFixed(2)}
+                          </Header>
+                        </Grid.Column>
+                        <Grid.Column textAlign="right">
+                          <Label
+                            basic
+                            circular
+                            style={{
+                              fontWeight: "bold",
+                              backgroundColor: getStatusColor(order.status),
+                              color: "white",
+                            }}
+                          >
+                            {order.status}
+                          </Label>
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
                   </Card.Content>
                 </Card>
               </Segment>
@@ -278,7 +319,7 @@ const ProfilePage = ({
           ))
         ) : (
           <Grid.Column>
-            <Message info> No Orders has been placed. </Message>
+            <Message info>No Orders have been placed.</Message>
           </Grid.Column>
         )}
       </Grid>

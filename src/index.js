@@ -14,6 +14,8 @@ export { default as DashboardInsightCard } from "./DashboardInsight";
 export { default as ForgotPassword } from "./ForgotPasswordPage";
 export { default as HeroSection } from "./HeroSection";
 export { default as LoginPage } from "./LoginPage";
+export { default as OrderList } from "./OrderList";
+export { default as OrderListTemplate } from "./OrderListTemplate";
 export { default as ProductCard } from "./ProductCard";
 export { default as ProductDetails } from "./ProductDetail";
 export { default as ProductDetailTemplate } from "./ProductDetailTemplate";
