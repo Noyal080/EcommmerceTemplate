@@ -12,7 +12,7 @@ import {
 const OrderListTemplate = ({
   orderData,
   currency = "Rs.",
-  handleProductClick,
+  handleProductClick = () => alert("Product Route not added"),
 }) => {
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {

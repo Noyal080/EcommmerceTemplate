@@ -44,7 +44,7 @@ const HeroSection = ({
                 style={{ minWidth: 250, maxWidth: "70%", marginBottom: "20px" }}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={() => handleKeyDown(searchTerm)}
+                onKeyDown={(e) => handleKeyDown(e, searchTerm)}
               />
             )}
             {frequentlySearchedItems && (

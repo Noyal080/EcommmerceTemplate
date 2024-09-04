@@ -30,7 +30,7 @@ const CategoryCarousel = ({
   };
 
   return (
-    <BGTHEME bgImage={bgImage}>
+    <BGTHEME bgImage={bgImage} paddingBottom="0vh">
       <div style={{ position: "relative" }}>
         <Container>
           <Button
@@ -59,7 +59,7 @@ const CategoryCarousel = ({
               transform: "translateY(-50%)",
             }}
           />
-          <Card.Group itemsPerRow={4} stackable style={{ margin: 30 }}>
+          <Card.Group itemsPerRow={4} stackable style={{ margin: 10 }}>
             {!categoryData ? (
               <Card style={{ height: "200px" }}>
                 <Card.Content>

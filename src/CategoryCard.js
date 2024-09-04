@@ -1,10 +1,16 @@
 import React from "react";
-import { Card } from "semantic-ui-react";
-const CategoryCard = ({ categoryData, handleRoute, itemsPerRow }) => {
+import { Card, Container, Icon, Button } from "semantic-ui-react";
+const CategoryCard = ({
+  categoryData,
+  handleRoute,
+  itemsPerRow = 4,
+  count = 0,
+  fetchMore = () => alert("Fetch More function not added"),
+}) => {
   return (
     <>
       <Card.Group
-        itemsPerRow={4 || itemsPerRow}
+        itemsPerRow={itemsPerRow}
         stackable
         style={{ margin: "0px 50px 50px 50px" }}
       >
@@ -38,6 +44,22 @@ const CategoryCard = ({ categoryData, handleRoute, itemsPerRow }) => {
           </Card>
         )}
       </Card.Group>
+
+      {categoryData?.length > 0 && count > categoryData?.length && (
+        <Container text textAlign="center" fluid style={{ paddingTop: 30 }}>
+          <Button
+            animated="vertical"
+            onClick={() => fetchMore()}
+            circular
+            primary
+          >
+            <Button.Content visible> SHOW MORE </Button.Content>
+            <Button.Content hidden>
+              <Icon name="arrow down" />
+            </Button.Content>
+          </Button>
+        </Container>
+      )}
     </>
   );
 };
