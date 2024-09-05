@@ -132,7 +132,6 @@ const ProductCard = ({
                     color="black"
                     floated="right"
                     onClick={() => addToCart(product)}
-                    circular
                     disabled={product?.stock_quantity === 0}
                   >
                     {" "}

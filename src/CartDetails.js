@@ -17,7 +17,7 @@ const CartDetails = ({
   handleCheckout = () => alert("handleCheckout function not provided"),
 }) => {
   const [cartItems, setCartItems] = useState(
-    typeof getCartItems === "function" ? getCartItems() : []
+    typeof getCartItems === "function" ? getCartItems() : getCartItems
   );
 
   return (
@@ -28,7 +28,7 @@ const CartDetails = ({
           <Grid celled columns={"equal"} stackable textAlign="center" doubling>
             {cartItems.map((cart) => (
               <Grid.Row>
-                <Grid.Column>
+                <Grid.Column style={{ cursor: "pointer" }}>
                   <Image
                     src={cart.image}
                     onClick={() => handleImageClick()}

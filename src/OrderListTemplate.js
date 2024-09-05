@@ -36,7 +36,7 @@ const OrderListTemplate = ({
     <div>
       {orderData?.length > 0 ? (
         orderData?.map((orders) => (
-          <Segment as={Container} secondary>
+          <Segment secondary style={{ marginBottom: 50 }}>
             <Grid stackable doubling divided>
               <Grid.Row columns={4}>
                 <Grid.Column>

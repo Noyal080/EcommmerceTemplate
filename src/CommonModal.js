@@ -7,9 +7,10 @@ const CommonModal = ({
   handleClose,
   open,
   onBtnPress,
+  size = "large",
 }) => {
   return (
-    <Modal open={open} onClose={handleClose} dimmer="inverted">
+    <Modal open={open} onClose={handleClose} dimmer="inverted" size={size}>
       <Modal.Header> {title} </Modal.Header>
       <Modal.Content>{children}</Modal.Content>
       <Modal.Actions>
