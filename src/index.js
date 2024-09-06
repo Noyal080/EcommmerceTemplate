@@ -6,6 +6,7 @@ export { default as AdminTable } from "./AdminTable";
 export { default as BGTheme } from "./BGTheme";
 export { default as Carousel } from "./Carousel";
 export { default as CartDetails } from "./CartDetails";
+export { default as CartDetailsTemplate } from "./CartDetailsTemplate";
 export { default as CategoryCard } from "./CategoryCard";
 export { default as CategoryCarousel } from "./CategoryCarousel";
 export { default as CheckoutPage } from "./CheckoutPage";
