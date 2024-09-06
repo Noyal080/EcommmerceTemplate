@@ -31,7 +31,7 @@ const CartDetails = ({
                 <Grid.Column style={{ cursor: "pointer" }}>
                   <Image
                     src={cart.image}
-                    onClick={() => handleImageClick()}
+                    onClick={() => handleImageClick(cart)}
                     size="medium"
                   />
                 </Grid.Column>
