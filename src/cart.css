@@ -1,72 +1,91 @@
 .cart-page {
-    padding: 20px;
-    background-color: #f9f9f9;
-  }
-  
-  .cart-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    position: relative; /* To position the delete icon */
-  }
-  
-  .cart-item-details {
-    flex-grow: 1;
-    padding: 0 10px;
-  }
-  
-  .quantity-price-row {
-    display: flex;
-    justify-content: space-between; /* Align quantity controls and price */
-    align-items: center;
-  }
-  
-  .quantity-controls {
-    display: flex;
-    align-items: center;
-    gap: 5px; /* Reduce the gap between the icons and the number */
-  }
-  
-  .quantity-controls .icon {
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .quantity-controls span {
-    padding: 0 10px; /* Adds spacing between the number and the icons */
-    font-size: 16px;
-  }
-  
-  .cart-item-price {
-    font-size: 18px;
-    font-weight: bold;
-    padding-left: 10px; /* Separate price from quantity */
-  }
-  
-  .cart-item-delete {
-    position: absolute; /* Makes the delete icon float */
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    
-  }
-  
-  .checkout-section {
-    padding: 20px;
-    background-color: #f5d580;
-  }
-  
-  .subtotal {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Aligns the Subtotal label and the price in the same row */
-  }
-  
-  .subtotal h3 {
-    margin: 0;
-    font-weight: bold;
-    font-size: 1.2em;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.empty-cart{
+  color: #000000;
+  margin-left: 20%
+}
+
+.cart-items-list {
+  flex-grow: 1;
+  overflow-y: auto; /* Makes the product list scrollable */
+  margin-bottom: 20px; /* Adds space above the checkout section */
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  position: relative; /* To position the delete icon */
+}
+
+.cart-item-details {
+  flex-grow: 1;
+  padding: 0 10px;
+  color: black !important;
+}
+
+.quantity-price-row {
+  display: flex;
+  justify-content: space-between; /* Align quantity controls and price */
+  align-items: center;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Reduce the gap between the icons and the number */
+}
+
+.quantity-controls .icon {
+  cursor: pointer;
+  font-size: 14px;
+  color: black !important;
+}
+
+.quantity-controls span {
+  padding: 0 10px; /* Adds spacing between the number and the icons */
+  font-size: 16px;
+}
+
+.cart-item-price {
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 10px; /* Separate price from quantity */
+}
+
+.cart-item-delete {
+  position: absolute; /* Makes the delete icon float */
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: black !important;
+}
+
+.checkout-section {
+  padding: 15px;
+  background-color: #f5d580;
+  position: sticky; /* Stick to the bottom when scrolling */
+  bottom: 0;
+  z-index: 1; /* Makes sure it's on top when scrolling */
+}
+
+.subtotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Aligns the Subtotal label and the price in the same row */
+  color: black !important;
+}
+
+.subtotal h3 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.2em;
+}
