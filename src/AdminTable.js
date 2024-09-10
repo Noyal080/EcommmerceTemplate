@@ -181,6 +181,7 @@ const AdminTable = ({
                       {viewData && (
                         <Icon
                           size="large"
+                          color="black"
                           name="eye outline"
                           onClick={() => viewData(row)}
                           style={{ cursor: "pointer", marginRight: "10px" }}

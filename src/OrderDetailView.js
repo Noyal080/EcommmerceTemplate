@@ -24,11 +24,15 @@ const OrderDetailView = ({
             <Card.Content>
               <Card.Header>Customer Details</Card.Header>
               <Divider />
-              <Card.Description>
-                <p>Name: {customerData.name}</p>
-                <p>Email: {customerData.email}</p>
-                <p>Phone: {customerData.phone}</p>
-              </Card.Description>
+              {customerData ? (
+                <Card.Description>
+                  <p>Name: {customerData.name}</p>
+                  <p>Email: {customerData.email}</p>
+                  <p>Phone: {customerData.phone}</p>
+                </Card.Description>
+              ) : (
+                <Card.Description>No User Data</Card.Description>
+              )}
             </Card.Content>
           </Card>
 
@@ -37,12 +41,17 @@ const OrderDetailView = ({
             <Card.Content>
               <Card.Header>Delivery Address</Card.Header>
               <Divider />
-              <Card.Description>
-                <p>{addressData.street}</p>
-                <p>
-                  {addressData.city}, {addressData.state} {addressData.zip}
-                </p>
-              </Card.Description>
+              {addressData ? (
+                <Card.Description>
+                  <p>{addressData.country}</p>
+                  <p>
+                    {addressData.address} {addressData.city},{" "}
+                    {addressData.state} {addressData.postalCode}
+                  </p>
+                </Card.Description>
+              ) : (
+                <Card.Description>No Address Found</Card.Description>
+              )}
             </Card.Content>
           </Card>
 
@@ -51,10 +60,14 @@ const OrderDetailView = ({
             <Card.Content>
               <Card.Header>Payment Details</Card.Header>
               <Divider />
-              <Card.Description>
-                <p>Method: {paymentData.method}</p>
-                <p>Card Number: {paymentData.cardNumber}</p>
-              </Card.Description>
+              {paymentData ? (
+                <Card.Description>
+                  <p>Method: {paymentData.method}</p>
+                  <p>Card Number: {paymentData.cardNumber}</p>
+                </Card.Description>
+              ) : (
+                <Card.Description>No Payment Data found</Card.Description>
+              )}
             </Card.Content>
           </Card>
         </Segment>
