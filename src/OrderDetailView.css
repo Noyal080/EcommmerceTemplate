@@ -1,0 +1,33 @@
+.admin-order-details-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 20px;
+    flex-wrap: wrap; /* Ensures items can wrap on smaller screens */
+  }
+  
+  .admin-order-details-summary {
+    flex: 3; /* Left side takes 2/3 of the available space */
+    min-width: 300px;
+  }
+  
+  .admin-order-details-info {
+    flex: 1; /* Right side takes 1/3 of the available space */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 200px; /* Ensures minimum width */
+  }
+  
+  /* Stack columns on screens smaller than 768px (mobile/tablet sizes) */
+  @media screen and (max-width: 768px) {
+    .admin-order-details-container {
+      flex-direction: column; /* Stack the summary and info vertically */
+    }
+  
+    .admin-order-details-summary,
+    .admin-order-details-info {
+      margin-right: 0;
+    }
+  }
+  
