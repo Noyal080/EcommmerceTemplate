@@ -5,9 +5,9 @@ import "./OrderDetailView.css";
 
 const OrderDetailView = ({
   orderData = [],
-  customerData = [],
-  addressData = [],
-  paymentData = [],
+  customerData,
+  addressData,
+  paymentData,
 }) => {
   return (
     <div className="admin-order-details-container">
@@ -24,7 +24,7 @@ const OrderDetailView = ({
             <Card.Content>
               <Card.Header>Customer Details</Card.Header>
               <Divider />
-              {customerData ? (
+              {customerData?.length > 0 ? (
                 <Card.Description>
                   <p>Name: {customerData.name}</p>
                   <p>Email: {customerData.email}</p>
@@ -41,7 +41,7 @@ const OrderDetailView = ({
             <Card.Content>
               <Card.Header>Delivery Address</Card.Header>
               <Divider />
-              {addressData ? (
+              {addressData?.length > 0 ? (
                 <Card.Description>
                   <p>{addressData.country}</p>
                   <p>
@@ -60,7 +60,7 @@ const OrderDetailView = ({
             <Card.Content>
               <Card.Header>Payment Details</Card.Header>
               <Divider />
-              {paymentData ? (
+              {paymentData?.length > 0 ? (
                 <Card.Description>
                   <p>Method: {paymentData.method}</p>
                   <p>Card Number: {paymentData.cardNumber}</p>
